@@ -1,6 +1,5 @@
-import { chakra, Spinner, theme } from "@chakra-ui/react";
+import { theme } from "@chakra-ui/react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import React from "react";
 import Heading from "../components/Heading";
 import { signIn } from "next-auth/client";
@@ -18,11 +17,11 @@ const Signup: React.FC = (props) => {
   return (
     <>
       <Head>
-        <title>signup / portfolio-2020-nextjs-prisma-postgres</title>
+        <title>signin / portfolio-2020-nextjs-prisma-postgres</title>
       </Head>
-      <Heading mb={theme.space[4]}>ユーザ登録</Heading>
+      <Heading mb={theme.space[4]}>ログイン</Heading>
       <Button w="240x" onClick={() => signIn("google")}>
-        Google アカウントで登録
+        Google アカウントでログイン
       </Button>
     </>
   );

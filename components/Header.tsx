@@ -7,17 +7,26 @@ const Header: React.FC<BoxProps> = (props) => {
   return (
     <chakra.header
       bgColor={theme.colors.gray[50]}
-      padding="16px"
+      padding={theme.space[4]}
       display="flex"
       justifyContent="space-between"
       color={theme.colors.gray[600]}
       {...props}
     >
-      <h1>
-        <Link href="/" display="inline-block">
-          Home
-        </Link>
-      </h1>
+      <chakra.ul display="inline-flex">
+        <chakra.li mr={theme.space[4]}>
+          <chakra.h1 display="inline-block">
+            <Link href="/">Home</Link>
+          </chakra.h1>
+        </chakra.li>
+        <Skeleton isLoaded={!loading}>
+          {session && (
+            <chakra.li display="inline-block" maxW={theme.space[60]}>
+              {session.user.name}
+            </chakra.li>
+          )}
+        </Skeleton>
+      </chakra.ul>
       <nav>
         <Skeleton isLoaded={!loading}>
           <chakra.ul display="inline-flex">
@@ -36,7 +45,7 @@ const Original: React.FC = () => {
         <Link href="/signup">ユーザ登録</Link>
       </chakra.li>
       <li>
-        <a href="#">ログイン</a>
+        <a href="/signin">ログイン</a>
       </li>
     </>
   );
@@ -45,15 +54,15 @@ const Original: React.FC = () => {
 const Authorized: React.FC = () => {
   return (
     <>
-      <chakra.li mr={theme.space[4]}>
+      <chakra.li mr={theme.space[4]} W={theme.space[8]}>
         <Link href="/">投稿</Link>
       </chakra.li>
-      <chakra.li mr={theme.space[4]}>
+      <chakra.li mr={theme.space[4]} W={theme.space[8]}>
         <Link href="/">管理</Link>
       </chakra.li>
-      <li>
+      <chakra.li W={theme.space[40]}>
         <a href="#">ログアウト</a>
-      </li>
+      </chakra.li>
     </>
   );
 };
