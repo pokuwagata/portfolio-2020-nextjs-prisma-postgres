@@ -1,5 +1,6 @@
-import { BoxProps, chakra, Link, Skeleton, theme } from "@chakra-ui/react";
-import { useSession } from "next-auth/client";
+import { BoxProps, chakra, Skeleton, theme } from "@chakra-ui/react";
+import { useSession, signOut } from "next-auth/client";
+import Link from "next/link";
 
 const Header: React.FC<BoxProps> = (props) => {
   const [session, loading] = useSession();
@@ -54,14 +55,16 @@ const Original: React.FC = () => {
 const Authorized: React.FC = () => {
   return (
     <>
-      <chakra.li mr={theme.space[4]} W={theme.space[8]}>
-        <Link href="/">投稿</Link>
+      <chakra.li mr={theme.space[4]} w={theme.space[8]} cursor="pointer">
+        <Link href="/post">
+          投稿
+        </Link>
       </chakra.li>
-      <chakra.li mr={theme.space[4]} W={theme.space[8]}>
+      <chakra.li mr={theme.space[4]} w={theme.space[8]} cursor="pointer">
         <Link href="/">管理</Link>
       </chakra.li>
-      <chakra.li W={theme.space[40]}>
-        <a href="#">ログアウト</a>
+      <chakra.li w={theme.space[20]} cursor="pointer">
+        <a onClick={() => signOut()}>ログアウト</a>
       </chakra.li>
     </>
   );

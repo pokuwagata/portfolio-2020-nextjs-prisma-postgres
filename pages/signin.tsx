@@ -3,12 +3,17 @@ import Head from "next/head";
 import React from "react";
 import Heading from "../components/Heading";
 import { signIn } from "next-auth/client";
-import Button from "../components/Button";
+import { Button } from "../components/Button";
 import { useCustomSession } from "../components/Hooks";
 import CenterSpinner from "../components/CenterSpinner";
+import { useRouter } from "next/router";
+import { NextPage } from "next";
 
-const Signup: React.FC = (props) => {
-  const [session, loading] = useCustomSession();
+const Signup: NextPage = () => {
+  const router = useRouter();
+  const [session, loading] = useCustomSession((session) => {
+    if (session) router.push("/");
+  });
 
   if (loading || session) {
     return <CenterSpinner />;

@@ -1,11 +1,9 @@
-import { useSession } from "next-auth/client";
-import { useRouter } from "next/router";
+import { Session, useSession } from "next-auth/client";
 
-export const useCustomSession = () => {
+export const useCustomSession = (callback: (session: Session) => void) => {
   const [session, loading] = useSession();
   if (typeof window !== "undefined") {
-    const router = useRouter();
-    if (session) router.push("/");
+    callback(session);
   }
   return [session, loading];
 };

@@ -8,7 +8,7 @@ if (process.env.NODE_ENV === "production") {
   prisma = new PrismaClient();
 } else {
   if (!global.prisma) {
-    global.prisma = new PrismaClient();
+    global.prisma = new PrismaClient({ log: ["query", "info", "warn"] });
   }
   prisma = global.prisma;
 }
@@ -20,5 +20,11 @@ const options = {
     }),
   ],
   adapter: Adapters.Prisma.Adapter({ prisma }),
+  callbacks: {
+    session: async (session, user) => {
+      session.user.id = user.id;
+      return Promise.resolve(session);
+    },
+  },
 };
 export default (req, res) => NextAuth(req, res, options);

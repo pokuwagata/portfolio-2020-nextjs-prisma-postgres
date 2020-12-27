@@ -1,15 +1,19 @@
-import { chakra, Spinner, theme } from "@chakra-ui/react";
+import { theme } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
 import Heading from "../components/Heading";
 import { signIn } from "next-auth/client";
-import Button from "../components/Button";
+import { Button } from "../components/Button";
 import { useCustomSession } from "../components/Hooks";
 import CenterSpinner from "../components/CenterSpinner";
+import { NextPage } from "next";
 
-const Signup: React.FC = (props) => {
-  const [session, loading] = useCustomSession();
+const Signup: NextPage = (props) => {
+  const router = useRouter();
+  const [session, loading] = useCustomSession((session) => {
+    if (session) router.push("/");
+  });
 
   if (loading || session) {
     return <CenterSpinner />;
