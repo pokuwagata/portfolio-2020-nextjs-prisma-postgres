@@ -1,5 +1,6 @@
 import { theme, BoxProps, chakra } from "@chakra-ui/react";
 import React from "react";
+import Heading from "./Heading";
 
 const Article: React.FC<BoxProps> = (props) => {
   return (
@@ -15,7 +16,7 @@ const Article: React.FC<BoxProps> = (props) => {
           flexDir={{ base: "column", sm: "row" }}
           mb={theme.space[4]}
         >
-          <chakra.h2 fontSize={theme.fontSizes["3xl"]}>見出し2</chakra.h2>
+          <Heading>見出し2</Heading>
           <time>2020/12/20 00:00:00</time>
         </chakra.dt>
         <dd>
