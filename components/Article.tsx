@@ -1,8 +1,17 @@
 import { theme, BoxProps, chakra } from "@chakra-ui/react";
 import React from "react";
+import { Post, User } from "../lib/prisma";
 import Heading from "./Heading";
 
-const Article: React.FC<BoxProps> = (props) => {
+const Article: React.FC<
+  BoxProps & {
+    post: Pick<Post, "title" | "body" | "updatedAt">;
+    user: Pick<User, "name">;
+  }
+> = (props) => {
+  const { title, body, updatedAt } = props.post;
+  const { name } = props.user;
+
   return (
     <chakra.article
       borderBottom={"1px solid" + theme.colors.gray[300]}
@@ -16,14 +25,14 @@ const Article: React.FC<BoxProps> = (props) => {
           flexDir={{ base: "column", sm: "row" }}
           mb={theme.space[4]}
         >
-          <Heading>見出し2</Heading>
-          <time>2020/12/20 00:00:00</time>
+          <Heading>{title}</Heading>
+          <time>{updatedAt}</time>
         </chakra.dt>
         <dd>
-          <chakra.section mb={theme.space[4]}>テスト</chakra.section>
+          <chakra.section mb={theme.space[4]}>{body}</chakra.section>
           <chakra.aside display="flex" justifyContent="space-between">
             <chakra.a display="inline-block">続きを読む</chakra.a>
-            <chakra.span display="inline-block">by user1</chakra.span>
+            <chakra.span display="inline-block">by {name}</chakra.span>
           </chakra.aside>
         </dd>
       </dl>

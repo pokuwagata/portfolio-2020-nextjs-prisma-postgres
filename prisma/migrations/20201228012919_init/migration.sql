@@ -53,6 +53,18 @@ CREATE TABLE "verification_requests" (
     PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "posts" (
+"id" SERIAL,
+    "body" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "userId" INTEGER,
+
+    PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "accounts.compound_id_unique" ON "accounts"("compound_id");
 
@@ -76,3 +88,6 @@ CREATE UNIQUE INDEX "users.email_unique" ON "users"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "verification_requests.token_unique" ON "verification_requests"("token");
+
+-- AddForeignKey
+ALTER TABLE "posts" ADD FOREIGN KEY("userId")REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;

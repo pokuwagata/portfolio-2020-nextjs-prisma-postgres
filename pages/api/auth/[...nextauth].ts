@@ -1,17 +1,8 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import Adapters from "next-auth/adapters";
-import { PrismaClient } from "@prisma/client";
-let prisma;
+import prisma from "../../../lib/prisma";
 
-if (process.env.NODE_ENV === "production") {
-  prisma = new PrismaClient();
-} else {
-  if (!global.prisma) {
-    global.prisma = new PrismaClient({ log: ["query", "info", "warn"] });
-  }
-  prisma = global.prisma;
-}
 const options = {
   providers: [
     Providers.Google({
