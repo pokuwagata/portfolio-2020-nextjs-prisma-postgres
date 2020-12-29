@@ -17,7 +17,7 @@ import prisma, { Post } from "../lib/prisma";
 
 type Props = { posts: Post[] };
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   const res = await prisma.post.findMany({
     select: {
       id: true,
@@ -78,7 +78,7 @@ const Manage: NextPage<Props> = (props) => {
         <chakra.table w="100%" style={{ tableLayout: "fixed" }}>
           <chakra.thead bgColor={theme.colors.gray[100]}>
             <chakra.tr fontWeight={theme.fontWeights.bold} textAlign="left">
-              <Header w="5%" textAlign="center">
+              <Header w="24px" textAlign="center">
                 <CheckBox
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     if (e.target.checked) {
@@ -119,7 +119,11 @@ const Manage: NextPage<Props> = (props) => {
                 </Cell>
                 <Cell>{post.updatedAt}</Cell>
                 <Cell textAlign="center">
-                  <LinkButton w={theme.space[12]} fontSize={theme.fontSizes.sm}>
+                  <LinkButton
+                    w={theme.space[12]}
+                    fontSize={theme.fontSizes.sm}
+                    href={"/edit/" + post.id}
+                  >
                     編集
                   </LinkButton>
                 </Cell>
