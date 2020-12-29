@@ -1,11 +1,12 @@
-import { chakra, Heading, Input, Textarea, theme } from "@chakra-ui/react";
+import { chakra, Input, Textarea, theme } from "@chakra-ui/react";
+import Heading from "../components/Heading";
 import { useSession } from "next-auth/client";
 import Head from "next/head";
 import React from "react";
 import { useForm } from "react-hook-form";
 import CenterSpinner from "../components/CenterSpinner";
 import { useRouter } from "next/router";
-import { PostButton } from "../components/Button";
+import { Button } from "../components/Button";
 import { useMutation, useQueryClient } from "react-query";
 import { NextPage } from "next";
 import FieldErrorMessage from "../components/FieldErrorMessage";
@@ -96,9 +97,9 @@ const Post: NextPage = () => {
           />
         </div>
         {/* TODO: 余白調整が必要な理由 */}
-        <PostButton type="submit" w={theme.space[20]} mt={"-" + theme.space[2]}>
+        <Button type="submit" w={theme.space[20]} mt={"-" + theme.space[2]}>
           投稿
-        </PostButton>
+        </Button>
       </form>
     </>
   );

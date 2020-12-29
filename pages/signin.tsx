@@ -3,7 +3,7 @@ import Head from "next/head";
 import React from "react";
 import Heading from "../components/Heading";
 import { signIn } from "next-auth/client";
-import { Button } from "../components/Button";
+import { LinkButton } from "../components/Button";
 import { useCustomSession } from "../components/Hooks";
 import CenterSpinner from "../components/CenterSpinner";
 import { useRouter } from "next/router";
@@ -25,9 +25,9 @@ const Signup: NextPage = () => {
         <title>signin / portfolio-2020-nextjs-prisma-postgres</title>
       </Head>
       <Heading mb={theme.space[4]}>ログイン</Heading>
-      <Button w="240x" onClick={() => signIn("google")}>
+      <LinkButton w="240x" onClick={() => signIn("google")}>
         Google アカウントでログイン
-      </Button>
+      </LinkButton>
     </>
   );
 };

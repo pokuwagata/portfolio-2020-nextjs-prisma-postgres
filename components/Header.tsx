@@ -56,12 +56,10 @@ const Authorized: React.FC = () => {
   return (
     <>
       <chakra.li mr={theme.space[4]} w={theme.space[8]} cursor="pointer">
-        <Link href="/post">
-          投稿
-        </Link>
+        <Link href="/post">投稿</Link>
       </chakra.li>
       <chakra.li mr={theme.space[4]} w={theme.space[8]} cursor="pointer">
-        <Link href="/">管理</Link>
+        <Link href="/manage">管理</Link>
       </chakra.li>
       <chakra.li w={theme.space[20]} cursor="pointer">
         <a onClick={() => signOut()}>ログアウト</a>

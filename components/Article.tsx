@@ -31,8 +31,8 @@ const Article: React.FC<
         <dd>
           <chakra.section mb={theme.space[4]}>{body}</chakra.section>
           <chakra.aside display="flex" justifyContent="space-between">
-            <chakra.a display="inline-block">続きを読む</chakra.a>
-            <chakra.span display="inline-block">by {name}</chakra.span>
+            <a>続きを読む</a>
+            <span>by {name}</span>
           </chakra.aside>
         </dd>
       </dl>
