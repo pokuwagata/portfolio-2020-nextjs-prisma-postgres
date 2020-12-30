@@ -16,7 +16,7 @@ const NewPost: NextPage = () => {
   const router = useRouter();
   const [session, loading] = useSession();
   const mutation = useMutation((post: PostReqInput) => {
-    return fetch("/api/posts", {
+    return fetch("/api/posts/hoge", {
       method: "POST",
       body: JSON.stringify(post),
     });
@@ -25,12 +25,13 @@ const NewPost: NextPage = () => {
   if (loading) {
     return <CenterSpinner />;
   }
-
   if (!session || mutation.isSuccess) router.push("/");
 
   const onSubmit = (post: PostReqInput) => {
     mutation.mutate({ ...post, userId: session.user.id });
   };
+
+  throw new Error("test");
 
   return (
     <>

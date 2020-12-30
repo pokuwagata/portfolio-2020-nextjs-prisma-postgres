@@ -14,26 +14,35 @@ import { PostReqInput, PostResponse } from "../../types/post";
 import prisma from "../../lib/prisma";
 
 type Props = {
-  post: PostResponse;
+  post?: PostResponse;
+  error?: string;
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
-  const res = await prisma.post.findUnique({
-    select: {
-      id: true,
-      title: true,
-      body: true,
-      userId: true,
-      updatedAt: true,
-    },
-    where: { id: parseInt(ctx.params.id as string) },
-  });
-  const post = await JSON.parse(JSON.stringify(res));
-  return {
-    props: {
-      post,
-    },
-  };
+  try {
+    const res = await prisma.post.findUnique({
+      select: {
+        id: true,
+        title: true,
+        body: true,
+        userId: true,
+        updatedAt: true,
+      },
+      where: { id: parseInt(ctx.params.id as string) },
+    });
+    const post = await JSON.parse(JSON.stringify(res));
+    return {
+      props: {
+        post,
+      },
+    };
+  } catch (e) {
+    return {
+      props: {
+        error: e.message,
+      },
+    };
+  }
 };
 
 const EditPost: NextPage<Props> = (props) => {

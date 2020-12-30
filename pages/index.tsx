@@ -6,27 +6,35 @@ import { GetServerSideProps, NextPage } from "next";
 import prisma, { Post, User } from "../lib/prisma";
 
 type PostData = Partial<Post & { User: User }>;
-type Props = { posts: PostData[] };
+type Props = { posts?: PostData[]; error?: string };
 
 export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
-  const res = await prisma.post.findMany({
-    select: {
-      id: true,
-      title: true,
-      body: true,
-      updatedAt: true,
-      User: {
-        select: { name: true },
+  try {
+    const res = await prisma.post.findMany({
+      select: {
+        id: true,
+        title: true,
+        body: true,
+        updatedAt: true,
+        User: {
+          select: { name: true },
+        },
       },
-    },
-    orderBy: { createdAt: "desc" },
-  });
-  const posts = await JSON.parse(JSON.stringify(res));
-  return {
-    props: {
-      posts,
-    },
-  };
+      orderBy: { createdAt: "desc" },
+    });
+    const posts = await JSON.parse(JSON.stringify(res));
+    return {
+      props: {
+        posts,
+      },
+    };
+  } catch (e) {
+    return {
+      props: {
+        error: e.message,
+      },
+    };
+  }
 };
 
 const Home: NextPage<Props> = (props) => {

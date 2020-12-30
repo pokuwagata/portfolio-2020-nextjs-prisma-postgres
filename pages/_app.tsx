@@ -3,11 +3,14 @@ import { Provider } from "next-auth/client";
 import { chakra, ChakraProvider, theme } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Header from "../components/Header";
+import ErrorBox from "../components/ErrorBox";
+import ErrorBoundary from "../components/ErrorBoundary";
 
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
   return (
+    // <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
       <Provider
         session={pageProps.session}
@@ -18,14 +21,23 @@ function MyApp({ Component, pageProps }) {
       >
         <ChakraProvider>
           <Header mb={theme.space[4]} />
-          <chakra.div maxW="1230px" padding="0 32px" margin="0 auto">
+          <chakra.div
+            maxW="1230px"
+            padding={["0 16px", "0 32px"]}
+            margin="0 auto"
+          >
             <main>
-              <Component {...pageProps} />
+              {pageProps.error ? (
+                <ErrorBox message={pageProps.error} />
+              ) : (
+                <Component {...pageProps} />
+              )}
             </main>
           </chakra.div>
         </ChakraProvider>
       </Provider>
     </QueryClientProvider>
+    // </ErrorBoundary>
   );
 }
 

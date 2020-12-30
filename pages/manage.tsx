@@ -16,23 +16,31 @@ import CheckBox from "../components/CheckBox";
 import prisma, { Post } from "../lib/prisma";
 import { useMutation } from "react-query";
 
-type Props = { posts: Post[] };
+type Props = { posts?: Post[]; error?: string };
 
 export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
-  const res = await prisma.post.findMany({
-    select: {
-      id: true,
-      title: true,
-      updatedAt: true,
-    },
-    orderBy: { createdAt: "desc" },
-  });
-  const posts = await JSON.parse(JSON.stringify(res));
-  return {
-    props: {
-      posts,
-    },
-  };
+  try {
+    const res = await prisma.post.findMany({
+      select: {
+        id: true,
+        title: true,
+        updatedAt: true,
+      },
+      orderBy: { createdAt: "desc" },
+    });
+    const posts = await JSON.parse(JSON.stringify(res));
+    return {
+      props: {
+        posts,
+      },
+    };
+  } catch (e) {
+    return {
+      props: {
+        error: e.message,
+      },
+    };
+  }
 };
 
 const Manage: NextPage<Props> = (props) => {

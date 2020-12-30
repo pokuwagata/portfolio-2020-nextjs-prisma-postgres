@@ -30,6 +30,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (req.method === "POST") {
+    res.status(500).json("test");
+    return;
     const { id, title, body, userId } = JSON.parse(req.body) as {
       id?: number;
       title: string;
