@@ -1,4 +1,3 @@
-export type Post = {
-  title: string;
-  body: string;
-};
+export type PostReqInput = any;
+
+export type PostResponse = any;

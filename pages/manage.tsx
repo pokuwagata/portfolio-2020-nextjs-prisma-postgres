@@ -14,6 +14,7 @@ import CenterSpinner from "../components/CenterSpinner";
 import { ChangeEvent, useState } from "react";
 import CheckBox from "../components/CheckBox";
 import prisma, { Post } from "../lib/prisma";
+import { useMutation } from "react-query";
 
 type Props = { posts: Post[] };
 
@@ -38,12 +39,31 @@ const Manage: NextPage<Props> = (props) => {
   const router = useRouter();
   const [session, loading] = useSession();
   const [selectedIds, setSelectedIds] = useState([]);
+  const mutation = useMutation((query: string) => {
+    return fetch("/api/posts" + query, {
+      method: "DELETE",
+    });
+  });
 
   if (loading) {
     return <CenterSpinner />;
   }
 
   if (!session) router.push("/");
+  if (mutation.isLoading) {
+    /* TODO */
+  }
+  if (mutation.isSuccess) {
+    router.reload();
+  }
+
+  const onDeleteClick = () => {
+    let query = "?id=" + selectedIds[0];
+    for (let i = 1; i < selectedIds.length; i++) {
+      query += "&id=" + selectedIds[i];
+    }
+    mutation.mutate(query);
+  };
 
   return (
     <>
@@ -59,6 +79,7 @@ const Manage: NextPage<Props> = (props) => {
             bgColor={theme.colors.red[600]}
             _hover={{ bgColor: theme.colors.red[700] }}
             _focus={{ bgColor: theme.colors.red[700] }}
+            onClick={onDeleteClick}
           >
             削除
           </Button>

@@ -10,14 +10,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.query.uid) {
     if (typeof req.query.uid === "object")
       return res.status(400).end("invalid query parameter");
-    if (!parseInt(req.query.uid))
+    if (!Number(req.query.uid))
       return res.status(400).end("invalid query parameter");
   }
 
   if (req.method === "GET") {
     const where: Prisma.PostWhereInput = {};
     if (req.query.uid) {
-      where.userId = parseInt(req.query.uid as string);
+      where.userId = Number(req.query.uid as string);
     }
 
     const posts = await prisma.post.findMany({
@@ -30,12 +30,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (req.method === "POST") {
-    const userId = session.user.id;
-    const { id, title, body } = JSON.parse(req.body) as {
+    const { id, title, body, userId } = JSON.parse(req.body) as {
       id?: number;
       title: string;
       body: string;
+      userId: number;
     };
+
+    if (userId != session.user.id) return res.status(401).end("unauthorized");
 
     if (id) {
       const updated = await prisma.post.update({
@@ -49,5 +51,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       });
       res.status(201).json(created);
     }
+  }
+
+  if (req.method === "DELETE") {
+    const { id } = req.query;
+    let where: Prisma.PostWhereInput = {};
+
+    if (typeof id === "object") {
+      where.OR = id.map((id) => {
+        return { id: Number(id), userId: session.user.id };
+      });
+    } else {
+      where = { id: Number(id), userId: session.user.id };
+    }
+    const deleted = await prisma.post.deleteMany({
+      where,
+    });
+    res.status(200).json(deleted);
   }
 };

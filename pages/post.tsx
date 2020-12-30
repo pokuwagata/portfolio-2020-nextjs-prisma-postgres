@@ -10,12 +10,12 @@ import { useMutation } from "react-query";
 import { NextPage } from "next";
 import FieldErrorMessage from "../components/FieldErrorMessage";
 import PostForm from "../components/PostForm";
-import { Post } from "../types/post";
+import { PostReqInput } from "../types/post";
 
 const NewPost: NextPage = () => {
   const router = useRouter();
   const [session, loading] = useSession();
-  const mutation = useMutation((post: Post) => {
+  const mutation = useMutation((post: PostReqInput) => {
     return fetch("/api/posts", {
       method: "POST",
       body: JSON.stringify(post),
@@ -28,8 +28,8 @@ const NewPost: NextPage = () => {
 
   if (!session || mutation.isSuccess) router.push("/");
 
-  const onSubmit = (post: Post) => {
-    mutation.mutate(post);
+  const onSubmit = (post: PostReqInput) => {
+    mutation.mutate({ ...post, userId: session.user.id });
   };
 
   return (

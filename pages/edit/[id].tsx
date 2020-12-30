@@ -10,11 +10,11 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { GetServerSideProps, NextPage } from "next";
 import FieldErrorMessage from "../../components/FieldErrorMessage";
 import PostForm from "../../components/PostForm";
-import { Post } from "../../types/post";
+import { PostReqInput, PostResponse } from "../../types/post";
 import prisma from "../../lib/prisma";
 
 type Props = {
-  post: Post;
+  post: PostResponse;
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
@@ -23,6 +23,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
       id: true,
       title: true,
       body: true,
+      userId: true,
       updatedAt: true,
     },
     where: { id: parseInt(ctx.params.id as string) },
@@ -40,7 +41,7 @@ const EditPost: NextPage<Props> = (props) => {
   const router = useRouter();
   const [session, sessionLoading] = useSession();
 
-  const mutation = useMutation((post: Post) => {
+  const mutation = useMutation((post: PostReqInput) => {
     return fetch("/api/posts", {
       method: "POST",
       body: JSON.stringify(post),
@@ -53,7 +54,7 @@ const EditPost: NextPage<Props> = (props) => {
 
   if (!session || mutation.isSuccess) router.push("/");
 
-  const onSubmit = (post: Post) => {
+  const onSubmit = (post: PostReqInput) => {
     mutation.mutate(post);
   };
 

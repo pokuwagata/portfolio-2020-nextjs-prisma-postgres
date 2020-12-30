@@ -1,20 +1,20 @@
-import { BoxProps, Button, chakra, theme } from "@chakra-ui/react";
+import { BoxProps, chakra, theme } from "@chakra-ui/react";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Post } from "../types/post";
+import { PostReqInput } from "../types/post";
 import PostBodyInput from "./PostBodyInput";
 import PostTitleInput from "./PostTitleInput";
 
 type Props = {
-  submitCallBack: (post: Post) => void;
-  post?: Post;
+  submitCallBack: (post: PostReqInput) => void;
+  post?: PostReqInput;
 };
 
 const PostForm: React.FC<Props> = (props) => {
   const { register, handleSubmit, errors } = useForm({ mode: "all" });
   const { title, body } = props.post ?? { title: "", body: "" };
 
-  const onSubmit = (post: Post) => {
+  const onSubmit = (post: PostReqInput) => {
     if (Object.keys(errors).length > 0) return;
     props.submitCallBack(post);
   };
