@@ -10,7 +10,6 @@ const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
   return (
-    // <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
       <Provider
         session={pageProps.session}
@@ -30,14 +29,15 @@ function MyApp({ Component, pageProps }) {
               {pageProps.error ? (
                 <ErrorBox message={pageProps.error} />
               ) : (
-                <Component {...pageProps} />
+                <ErrorBoundary>
+                  <Component {...pageProps} />
+                </ErrorBoundary>
               )}
             </main>
           </chakra.div>
         </ChakraProvider>
       </Provider>
     </QueryClientProvider>
-    // </ErrorBoundary>
   );
 }
 

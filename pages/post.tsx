@@ -31,8 +31,6 @@ const NewPost: NextPage = () => {
     mutation.mutate({ ...post, userId: session.user.id });
   };
 
-  throw new Error("test");
-
   return (
     <>
       <Head>
