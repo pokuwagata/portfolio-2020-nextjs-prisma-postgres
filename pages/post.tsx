@@ -15,17 +15,23 @@ import { PostReqInput } from "../types/post";
 const NewPost: NextPage = () => {
   const router = useRouter();
   const [session, loading] = useSession();
-  const mutation = useMutation((post: PostReqInput) => {
-    return fetch("/api/posts/hoge", {
+  const mutation = useMutation(async (post: PostReqInput) => {
+    const res = await fetch("/api/posts", {
       method: "POST",
       body: JSON.stringify(post),
     });
+    if (!res.ok) {
+      throw new Error(await res.text());
+    }
+    return res;
   });
 
   if (loading) {
     return <CenterSpinner />;
   }
   if (!session || mutation.isSuccess) router.push("/");
+
+  if (mutation.isError) throw mutation.error;
 
   const onSubmit = (post: PostReqInput) => {
     mutation.mutate({ ...post, userId: session.user.id });

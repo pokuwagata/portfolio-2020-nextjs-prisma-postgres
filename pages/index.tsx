@@ -3,10 +3,9 @@ import React from "react";
 import Article from "../components/Article";
 import Head from "next/head";
 import { GetServerSideProps, NextPage } from "next";
-import prisma, { Post, User } from "../lib/prisma";
+import prisma from "../lib/prisma";
 
-type PostData = Partial<Post & { User: User }>;
-type Props = { posts?: PostData[]; error?: string };
+type Props = { posts?: any[]; error?: string };
 
 export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   try {
@@ -50,14 +49,7 @@ const Home: NextPage<Props> = (props) => {
         <chakra.ul>
           {posts.map((post) => (
             <chakra.li mb={theme.space[8]} _last={{ mb: 0 }} key={post.id}>
-              <Article
-                post={{
-                  title: post.title,
-                  body: post.body,
-                  updatedAt: post.updatedAt,
-                }}
-                user={{ name: post.User.name }}
-              />
+              <Article {...{ post }} />
             </chakra.li>
           ))}
         </chakra.ul>
