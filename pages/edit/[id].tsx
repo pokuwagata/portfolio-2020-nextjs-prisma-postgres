@@ -5,7 +5,7 @@ import Head from "next/head";
 import React from "react";
 import CenterSpinner from "../../components/CenterSpinner";
 import { useRouter } from "next/router";
-import { Button } from "../../components/Button";
+import { Button, LoadingButton } from "../../components/Button";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { GetServerSideProps, NextPage } from "next";
 import FieldErrorMessage from "../../components/FieldErrorMessage";
@@ -63,6 +63,8 @@ const EditPost: NextPage<Props> = (props) => {
 
   if (!session || mutation.isSuccess) router.push("/");
 
+  const spinnerVisible = mutation.isLoading || mutation.isSuccess;
+
   const onSubmit = (post: PostReqInput) => {
     mutation.mutate(post);
   };
@@ -77,9 +79,13 @@ const EditPost: NextPage<Props> = (props) => {
         <FieldErrorMessage>{mutation.error}</FieldErrorMessage>
       )}
       <PostForm submitCallBack={onSubmit} {...{ post }}>
-        <Button type="submit" w={theme.space[20]}>
-          更新
-        </Button>
+        {spinnerVisible ? (
+          <LoadingButton type="submit" w={theme.space[20]} />
+        ) : (
+          <Button type="submit" w={theme.space[20]}>
+            更新
+          </Button>
+        )}
       </PostForm>
     </>
   );

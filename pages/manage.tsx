@@ -8,10 +8,15 @@ import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
-import { Button, LinkButton, DisabledButton } from "../components/Button";
+import {
+  Button,
+  LinkButton,
+  DisabledButton,
+  LoadingButton,
+} from "../components/Button";
 import Heading from "../components/Heading";
 import CenterSpinner from "../components/CenterSpinner";
-import { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import CheckBox from "../components/CheckBox";
 import prisma, { Post } from "../lib/prisma";
 import { useMutation } from "react-query";
@@ -58,12 +63,12 @@ const Manage: NextPage<Props> = (props) => {
   }
 
   if (!session) router.push("/");
-  if (mutation.isLoading) {
-    /* TODO */
-  }
+
   if (mutation.isSuccess) {
     router.reload();
   }
+
+  const spinnerVisible = mutation.isLoading || mutation.isSuccess;
 
   const onDeleteClick = () => {
     let query = "?id=" + selectedIds[0];
@@ -81,16 +86,23 @@ const Manage: NextPage<Props> = (props) => {
       <Heading mb={theme.space[4]}>記事の管理</Heading>
       <chakra.div textAlign="right" mb={theme.space[4]} pr={theme.space[2]}>
         {selectedIds.length > 0 ? (
-          <Button
-            w={theme.space[12]}
-            fontSize={theme.fontSizes.sm}
-            bgColor={theme.colors.red[600]}
-            _hover={{ bgColor: theme.colors.red[700] }}
-            _focus={{ bgColor: theme.colors.red[700] }}
-            onClick={onDeleteClick}
-          >
-            削除
-          </Button>
+          spinnerVisible ? (
+            <LoadingButton
+              w={theme.space[12]}
+              bgColor={theme.colors.red[200]}
+            />
+          ) : (
+            <Button
+              w={theme.space[12]}
+              fontSize={theme.fontSizes.sm}
+              bgColor={theme.colors.red[600]}
+              _hover={{ bgColor: theme.colors.red[700] }}
+              _focus={{ bgColor: theme.colors.red[700] }}
+              onClick={onDeleteClick}
+            >
+              削除
+            </Button>
+          )
         ) : (
           <DisabledButton
             w={theme.space[12]}
@@ -119,7 +131,9 @@ const Manage: NextPage<Props> = (props) => {
                 />
               </Header>
               <Header>タイトル</Header>
-              <Header w="20%">更新日時</Header>
+              <Header w="20%" display={["none", "table-cell"]}>
+                更新日時
+              </Header>
               <Header w={theme.space[16]} textAlign="center">
                 管理
               </Header>
@@ -143,10 +157,14 @@ const Manage: NextPage<Props> = (props) => {
                     }}
                   />
                 </Cell>
-                <Cell>
+                <Cell
+                  overflow="hidden"
+                  textOverflow="ellipsis"
+                  whiteSpace="nowrap"
+                >
                   <label htmlFor={post.id.toString()}>{post.title}</label>
                 </Cell>
-                <Cell>{post.updatedAt}</Cell>
+                <Cell display={["none", "table-cell"]}>{post.updatedAt}</Cell>
                 <Cell textAlign="center">
                   <LinkButton
                     w={theme.space[12]}

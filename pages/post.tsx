@@ -5,7 +5,7 @@ import Head from "next/head";
 import React from "react";
 import CenterSpinner from "../components/CenterSpinner";
 import { useRouter } from "next/router";
-import { Button } from "../components/Button";
+import { Button, LoadingButton } from "../components/Button";
 import { useMutation } from "react-query";
 import { NextPage } from "next";
 import FieldErrorMessage from "../components/FieldErrorMessage";
@@ -33,6 +33,8 @@ const NewPost: NextPage = () => {
 
   if (mutation.isError) throw mutation.error;
 
+  const spinnerVisible = mutation.isLoading || mutation.isSuccess;
+
   const onSubmit = (post: PostReqInput) => {
     mutation.mutate({ ...post, userId: session.user.id });
   };
@@ -47,9 +49,13 @@ const NewPost: NextPage = () => {
         <FieldErrorMessage>{mutation.error}</FieldErrorMessage>
       )}
       <PostForm submitCallBack={onSubmit}>
-        <Button type="submit" w={theme.space[20]}>
-          投稿
-        </Button>
+        {spinnerVisible ? (
+          <LoadingButton type="submit" w={theme.space[20]} />
+        ) : (
+          <Button type="submit" w={theme.space[20]}>
+            投稿
+          </Button>
+        )}
       </PostForm>
     </>
   );

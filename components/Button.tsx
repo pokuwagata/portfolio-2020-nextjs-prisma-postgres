@@ -1,5 +1,12 @@
-import { ButtonProps, chakra, LinkProps, theme } from "@chakra-ui/react";
+import {
+  ButtonProps,
+  chakra,
+  LinkProps,
+  Spinner,
+  theme,
+} from "@chakra-ui/react";
 import { Props } from "framer-motion/types/types";
+import React from "react";
 
 const base: Props = {
   bgColor: theme.colors.blue[400],
@@ -41,5 +48,14 @@ export const DisabledButton: React.FC<ButtonProps> = (props) => {
     <chakra.button {...base} {...props} disabled={true} cursor="not-allowed">
       {props.children}
     </chakra.button>
+  );
+};
+
+export const LoadingButton: React.FC<ButtonProps> = (props) => {
+  return (
+    <DisabledButton {...props}>
+      <Spinner size="sm" />
+      {props.children}
+    </DisabledButton>
   );
 };
