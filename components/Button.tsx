@@ -45,7 +45,13 @@ export const Button: React.FC<ButtonProps> = (props) => {
 
 export const DisabledButton: React.FC<ButtonProps> = (props) => {
   return (
-    <chakra.button {...base} {...props} disabled={true} cursor="not-allowed">
+    <chakra.button
+      {...base}
+      bgColor={theme.colors.blue[200]}
+      {...props}
+      disabled={true}
+      cursor="not-allowed"
+    >
       {props.children}
     </chakra.button>
   );

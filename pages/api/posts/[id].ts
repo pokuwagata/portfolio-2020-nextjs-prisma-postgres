@@ -4,7 +4,6 @@ import { getSession } from "next-auth/client";
 import prisma from "../../../lib/prisma";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log(req.query.id);
   const session = await getSession({ req });
   if (!session) return res.status(401).end("unauthorized");
   const id = req.query.id as string;

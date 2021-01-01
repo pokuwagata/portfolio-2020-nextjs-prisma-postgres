@@ -50,11 +50,15 @@ const EditPost: NextPage<Props> = (props) => {
   const router = useRouter();
   const [session, sessionLoading] = useSession();
 
-  const mutation = useMutation((post: PostReqInput) => {
-    return fetch("/api/posts", {
+  const mutation = useMutation(async (post: PostReqInput) => {
+    const res = await fetch("/api/posts", {
       method: "POST",
       body: JSON.stringify(post),
     });
+    if (!res.ok) {
+      throw new Error(await res.text());
+    }
+    return res;
   });
 
   if (sessionLoading) {

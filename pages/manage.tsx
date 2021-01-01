@@ -52,10 +52,14 @@ const Manage: NextPage<Props> = (props) => {
   const router = useRouter();
   const [session, loading] = useSession();
   const [selectedIds, setSelectedIds] = useState([]);
-  const mutation = useMutation((query: string) => {
-    return fetch("/api/posts" + query, {
+  const mutation = useMutation(async (query: string) => {
+    const res = await fetch("/api/posts" + query, {
       method: "DELETE",
     });
+    if (!res.ok) {
+      throw new Error(await res.text());
+    }
+    return res;
   });
 
   if (loading) {
