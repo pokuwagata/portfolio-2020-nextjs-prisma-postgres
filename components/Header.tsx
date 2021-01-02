@@ -1,6 +1,18 @@
-import { BoxProps, chakra, Skeleton, theme } from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import {
+  BoxProps,
+  Button,
+  chakra,
+  Skeleton,
+  theme,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+} from "@chakra-ui/react";
 import { useSession, signOut } from "next-auth/client";
 import Link from "next/link";
+import React from "react";
 
 type Props = {
   innerStyle?: BoxProps;
@@ -20,7 +32,7 @@ const Header: React.FC<Props> = (props) => {
       {...outerStyle}
     >
       <chakra.div display="flex" justifyContent="space-between" {...innerStyle}>
-        <chakra.ul display="inline-flex">
+        <chakra.ul display="inline-flex" alignItems="center">
           <chakra.li mr={theme.space[4]}>
             <h1>
               <Link href="/">Home</Link>
@@ -57,7 +69,23 @@ const Original: React.FC = () => {
 const Authorized: React.FC = () => {
   return (
     <>
-      <chakra.li mr={theme.space[4]} w={theme.space[8]} cursor="pointer">
+      <Menu>
+        <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+          menu
+        </MenuButton>
+        <MenuList>
+          <MenuItem as="a" href="/post">
+            投稿
+          </MenuItem>
+          <MenuItem as="a" href="/manage">
+            管理
+          </MenuItem>
+          <MenuItem as="a" onClick={() => signOut()}>
+            ログアウト
+          </MenuItem>
+        </MenuList>
+      </Menu>
+      {/* <chakra.li mr={theme.space[4]} w={theme.space[8]} cursor="pointer">
         <Link href="/post">投稿</Link>
       </chakra.li>
       <chakra.li mr={theme.space[4]} w={theme.space[8]} cursor="pointer">
@@ -65,7 +93,7 @@ const Authorized: React.FC = () => {
       </chakra.li>
       <chakra.li w={theme.space[20]} cursor="pointer">
         <a onClick={() => signOut()}>ログアウト</a>
-      </chakra.li>
+      </chakra.li> */}
     </>
   );
 };
