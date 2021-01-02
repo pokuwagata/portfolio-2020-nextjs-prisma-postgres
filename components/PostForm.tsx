@@ -22,7 +22,10 @@ const PostForm: React.FC<Props> = (props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Wrapper>
-        <PostTitleInput {...{ errors, register, title }} />
+        <PostTitleInput
+          style={{ autoFocus: true }}
+          {...{ errors, register, title }}
+        />
       </Wrapper>
       <Wrapper>
         <PostBodyInput {...{ errors, register, body }} />

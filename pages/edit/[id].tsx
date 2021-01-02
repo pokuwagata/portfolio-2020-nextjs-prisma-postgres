@@ -6,7 +6,7 @@ import React from "react";
 import CenterSpinner from "../../components/CenterSpinner";
 import { useRouter } from "next/router";
 import { Button, LoadingButton } from "../../components/Button";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import { GetServerSideProps, NextPage } from "next";
 import FieldErrorMessage from "../../components/FieldErrorMessage";
 import PostForm from "../../components/PostForm";
@@ -65,12 +65,12 @@ const EditPost: NextPage<Props> = (props) => {
     return <CenterSpinner />;
   }
 
-  if (!session || mutation.isSuccess) router.push("/");
+  if (!session || mutation.isSuccess) router.push("/manage");
 
   const spinnerVisible = mutation.isLoading || mutation.isSuccess;
 
-  const onSubmit = (post: PostReqInput) => {
-    mutation.mutate(post);
+  const onSubmit = (data: PostReqInput) => {
+    mutation.mutate({ id: post.id, userId: post.userId, ...data });
   };
 
   return (

@@ -1,6 +1,6 @@
 import { Post, User } from "@prisma/client";
 
-export type PostReqInput = any;
+export type PostReqInput = any; // TODO: formData に変更する
 
 export type PostResponse = any;
 

@@ -1,4 +1,4 @@
-import { Input, theme } from "@chakra-ui/react";
+import { Input, InputProps, theme } from "@chakra-ui/react";
 import React from "react";
 import { DeepMap, FieldError } from "react-hook-form";
 import FieldErrorMessage from "./FieldErrorMessage";
@@ -7,6 +7,7 @@ type Props = {
   register: any;
   errors: DeepMap<Record<string, any>, FieldError>;
   title: string;
+  style: InputProps;
 };
 
 const PostTitleInput: React.FC<Props> = (props) => {
@@ -18,6 +19,7 @@ const PostTitleInput: React.FC<Props> = (props) => {
         <FieldErrorMessage>{errors.title.message}</FieldErrorMessage>
       )}
       <Input
+        {...{ ...props.style }}
         defaultValue={title}
         placeholder="タイトルを入力"
         name="title"
