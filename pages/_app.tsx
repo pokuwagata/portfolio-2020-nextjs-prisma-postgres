@@ -19,7 +19,14 @@ function MyApp({ Component, pageProps }) {
         }}
       >
         <ChakraProvider>
-          <Header mb={theme.space[4]} />
+          <Header
+            outerStyle={{ mb: theme.space[4] }}
+            innerStyle={{
+              maxW: "1230px",
+              padding: ["0 16px", "0 32px"],
+              margin: "0 auto",
+            }}
+          />
           <chakra.div
             maxW="1230px"
             padding={["0 16px", "0 32px"]}
