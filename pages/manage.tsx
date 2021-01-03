@@ -20,6 +20,7 @@ import React, { ChangeEvent, useState } from "react";
 import CheckBox from "../components/CheckBox";
 import prisma, { Post } from "../lib/prisma";
 import { useMutation } from "react-query";
+import DeleteDialog from "../components/DeleteDialog";
 
 type Props = { posts?: Post[]; error?: string };
 
@@ -52,6 +53,7 @@ const Manage: NextPage<Props> = (props) => {
   const router = useRouter();
   const [session, loading] = useSession();
   const [selectedIds, setSelectedIds] = useState([]);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const mutation = useMutation(async (query: string) => {
     const res = await fetch("/api/posts" + query, {
       method: "DELETE",
@@ -80,6 +82,7 @@ const Manage: NextPage<Props> = (props) => {
       query += "&id=" + selectedIds[i];
     }
     mutation.mutate(query);
+    setDeleteDialogOpen(false);
   };
 
   return (
@@ -87,6 +90,14 @@ const Manage: NextPage<Props> = (props) => {
       <Head>
         <title>manage / portfolio-2020-nextjs-prisma-postgres</title>
       </Head>
+      <DeleteDialog
+        isOpen={deleteDialogOpen}
+        onClose={() => {
+          setDeleteDialogOpen(false);
+        }}
+        onDeleteClick={onDeleteClick}
+        count={selectedIds.length}
+      />
       <Heading mb={theme.space[4]}>記事の管理</Heading>
       <chakra.div textAlign="right" mb={theme.space[4]} pr={theme.space[2]}>
         {selectedIds.length > 0 ? (
@@ -102,7 +113,9 @@ const Manage: NextPage<Props> = (props) => {
               bgColor={theme.colors.red[600]}
               _hover={{ bgColor: theme.colors.red[700] }}
               _focus={{ bgColor: theme.colors.red[700] }}
-              onClick={onDeleteClick}
+              onClick={() => {
+                setDeleteDialogOpen(true);
+              }}
             >
               削除
             </Button>

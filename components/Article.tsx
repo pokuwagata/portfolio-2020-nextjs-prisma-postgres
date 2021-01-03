@@ -36,7 +36,9 @@ const Article: React.FC<BoxProps & any> = (props) => {
           >
             {detailButton && (
               <Link href={"/posts/" + id}>
-                <chakra.a color={theme.colors.blue[500]}>続きを読む</chakra.a>
+                <chakra.a color={theme.colors.blue[500]} cursor="pointer">
+                  続きを読む
+                </chakra.a>
               </Link>
             )}
             <span>by {name}</span>
