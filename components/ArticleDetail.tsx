@@ -1,4 +1,5 @@
 import { theme, BoxProps, chakra } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import React from "react";
 import Heading from "./Heading";
 
@@ -10,7 +11,7 @@ const ArticleDetail: React.FC<BoxProps & any> = (props) => {
     <chakra.article pb={theme.space[4]}>
       <dl>
         <chakra.dt mb={theme.space[4]}>
-          <time>{updatedAt}</time>
+          <time>{dayjs(updatedAt).format("YYYY-MM-DD")}</time>
           <Heading>{title}</Heading>
         </chakra.dt>
         <dd>

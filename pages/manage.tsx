@@ -21,6 +21,7 @@ import CheckBox from "../components/CheckBox";
 import prisma, { Post } from "../lib/prisma";
 import { useMutation } from "react-query";
 import DeleteDialog from "../components/DeleteDialog";
+import dayjs from "dayjs";
 
 type Props = { posts?: Post[]; error?: string };
 
@@ -181,7 +182,9 @@ const Manage: NextPage<Props> = (props) => {
                 >
                   <label htmlFor={post.id.toString()}>{post.title}</label>
                 </Cell>
-                <Cell display={["none", "table-cell"]}>{post.updatedAt}</Cell>
+                <Cell display={["none", "table-cell"]}>
+                  {dayjs(post.updatedAt).format("YYYY-MM-DD HH:mm:ss")}
+                </Cell>
                 <Cell textAlign="center">
                   <LinkButton
                     w={theme.space[12]}

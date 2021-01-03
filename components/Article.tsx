@@ -2,6 +2,7 @@ import { theme, BoxProps, chakra } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
 import Heading from "./Heading";
+import dayjs from "dayjs";
 
 const Article: React.FC<BoxProps & any> = (props) => {
   const maxBodyLength = 50;
@@ -16,7 +17,9 @@ const Article: React.FC<BoxProps & any> = (props) => {
     >
       <dl>
         <chakra.dt mb={theme.space[4]}>
-          <time>{updatedAt}</time>
+          <chakra.div mb={theme.space[2]}>
+            <time>{dayjs(updatedAt).format("YYYY-MM-DD")}</time>
+          </chakra.div>
           <Heading
             maxW="100%"
             overflow="hidden"

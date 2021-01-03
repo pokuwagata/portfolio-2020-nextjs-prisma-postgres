@@ -48,7 +48,7 @@ const Home: NextPage<Props> = (props) => {
       ) : (
         <chakra.ul>
           {posts.map((post) => (
-            <chakra.li mb={theme.space[8]} _last={{ mb: 0 }} key={post.id}>
+            <chakra.li mb={theme.space[4]} _last={{ mb: 0 }} key={post.id}>
               <Article {...{ post }} />
             </chakra.li>
           ))}

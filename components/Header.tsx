@@ -34,9 +34,9 @@ const Header: React.FC<Props> = (props) => {
       <chakra.div display="flex" justifyContent="space-between" {...innerStyle}>
         <chakra.ul display="inline-flex" alignItems="center">
           <chakra.li mr={theme.space[4]}>
-            <h1>
+            <chakra.h1 fontWeight={theme.fontWeights.semibold}>
               <Link href="/">Home</Link>
-            </h1>
+            </chakra.h1>
           </chakra.li>
           <Skeleton isLoaded={!loading}>
             {session && (
