@@ -7,28 +7,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
   if (!session) return res.status(401).end("unauthorized");
 
-  if (req.query.uid) {
-    if (typeof req.query.uid === "object")
-      return res.status(400).end("invalid query parameter");
-    if (!Number(req.query.uid))
-      return res.status(400).end("invalid query parameter");
-  }
-
-  if (req.method === "GET") {
-    const where: Prisma.PostWhereInput = {};
-    if (req.query.uid) {
-      where.userId = Number(req.query.uid as string);
-    }
-
-    const posts = await prisma.post.findMany({
-      where,
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-    return res.status(200).json(posts);
-  }
-
   if (req.method === "POST") {
     const { id, title, body, userId } = JSON.parse(req.body) as {
       id?: number;
