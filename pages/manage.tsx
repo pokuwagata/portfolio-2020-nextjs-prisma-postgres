@@ -6,7 +6,7 @@ import {
 } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import { useSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import {
   Button,
@@ -26,12 +26,16 @@ import dayjs from "dayjs";
 type Props = { posts?: Post[]; error?: string };
 
 export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
+  const session = await getSession(ctx);
   try {
     const res = await prisma.post.findMany({
       select: {
         id: true,
         title: true,
         updatedAt: true,
+      },
+      where: {
+        userId: session.user.id,
       },
       orderBy: { createdAt: "desc" },
     });
@@ -74,6 +78,8 @@ const Manage: NextPage<Props> = (props) => {
   if (mutation.isSuccess) {
     router.reload();
   }
+
+  if (mutation.isError) throw mutation.error;
 
   const spinnerVisible = mutation.isLoading || mutation.isSuccess;
 
