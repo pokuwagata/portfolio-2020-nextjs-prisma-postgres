@@ -8,7 +8,7 @@ import prisma from "../lib/prisma";
 
 type Props = { posts?: any[]; error?: string };
 
-export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
   try {
     const res = await prisma.post.findMany({
       select: {

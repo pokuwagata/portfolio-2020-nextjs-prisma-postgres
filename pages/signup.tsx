@@ -10,9 +10,9 @@ import CenterSpinner from "../components/CenterSpinner";
 import Heading from "../components/Heading";
 import { useCustomSession } from "../components/Hooks";
 
-const Signup: NextPage = (props) => {
+const Signup: NextPage = () => {
   const router = useRouter();
-  const [session, loading] = useCustomSession((session) => {
+  const [session, loading] = useCustomSession(() => {
     if (session) router.push("/");
   });
 

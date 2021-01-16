@@ -1,4 +1,4 @@
-import { Input, Textarea, theme } from "@chakra-ui/react";
+import { Textarea, theme } from "@chakra-ui/react";
 import React from "react";
 import { DeepMap, FieldError } from "react-hook-form";
 

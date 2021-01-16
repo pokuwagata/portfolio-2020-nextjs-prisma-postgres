@@ -1,6 +1,6 @@
 import { signIn, signOut, useSession } from "next-auth/client";
 export default function Test() {
-  const [session, loading] = useSession();
+  const [session] = useSession();
   return (
     <>
       {!session && (

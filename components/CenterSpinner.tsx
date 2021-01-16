@@ -1,7 +1,7 @@
 import { chakra, Spinner } from "@chakra-ui/react";
 import React from "react";
 
-const CenterSpinner: React.FC = (props) => {
+const CenterSpinner: React.FC = () => {
   return (
     <chakra.div
       pos="fixed"
