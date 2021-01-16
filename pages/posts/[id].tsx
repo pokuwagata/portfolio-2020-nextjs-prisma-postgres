@@ -1,7 +1,8 @@
 import { GetServerSideProps, NextPage } from "next";
-import { PostViewResponse } from "../../types/post";
+
 import ArticleDetail from "../../components/ArticleDetail";
 import prisma from "../../lib/prisma";
+import { PostViewResponse } from "../../types/post";
 
 type Props = {
   post?: PostViewResponse;

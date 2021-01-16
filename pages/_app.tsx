@@ -1,10 +1,11 @@
 import "css-wipe";
-import { Provider } from "next-auth/client";
 import { chakra, ChakraProvider, theme } from "@chakra-ui/react";
+import { Provider } from "next-auth/client";
 import { QueryClient, QueryClientProvider } from "react-query";
-import Header from "../components/Header";
-import ErrorBox from "../components/ErrorBox";
+
 import ErrorBoundary from "../components/ErrorBoundary";
+import ErrorBox from "../components/ErrorBox";
+import Header from "../components/Header";
 
 const queryClient = new QueryClient();
 

@@ -1,7 +1,9 @@
 import { BoxProps, chakra, theme } from "@chakra-ui/react";
 import React from "react";
 import { useForm } from "react-hook-form";
+
 import { PostReqInput } from "../types/post";
+
 import PostBodyInput from "./PostBodyInput";
 import PostTitleInput from "./PostTitleInput";
 

@@ -1,13 +1,14 @@
 import { chakra, theme } from "@chakra-ui/react";
-import Head from "next/head";
-import React from "react";
-import Heading from "../components/Heading";
-import { signIn } from "next-auth/client";
-import { LinkButton } from "../components/Button";
-import { useCustomSession } from "../components/Hooks";
-import CenterSpinner from "../components/CenterSpinner";
-import { useRouter } from "next/router";
 import { NextPage } from "next";
+import { signIn } from "next-auth/client";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import React from "react";
+
+import { LinkButton } from "../components/Button";
+import CenterSpinner from "../components/CenterSpinner";
+import Heading from "../components/Heading";
+import { useCustomSession } from "../components/Hooks";
 
 const Signup: NextPage = () => {
   const router = useRouter();

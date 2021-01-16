@@ -1,14 +1,15 @@
 import { theme } from "@chakra-ui/react";
-import Heading from "../components/Heading";
+import { NextPage } from "next";
 import { useSession } from "next-auth/client";
 import Head from "next/head";
-import React from "react";
-import CenterSpinner from "../components/CenterSpinner";
 import { useRouter } from "next/router";
-import { Button, LoadingButton } from "../components/Button";
+import React from "react";
 import { useMutation } from "react-query";
-import { NextPage } from "next";
+
+import { Button, LoadingButton } from "../components/Button";
+import CenterSpinner from "../components/CenterSpinner";
 import FieldErrorMessage from "../components/FieldErrorMessage";
+import Heading from "../components/Heading";
 import PostForm from "../components/PostForm";
 import { PostReqInput } from "../types/post";
 

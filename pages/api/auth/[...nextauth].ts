@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
-import Providers from "next-auth/providers";
 import Adapters from "next-auth/adapters";
+import Providers from "next-auth/providers";
+
 import prisma from "../../../lib/prisma";
 
 const options = {

@@ -4,24 +4,25 @@ import {
   TableColumnHeaderProps,
   theme,
 } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import { GetServerSideProps, NextPage } from "next";
-import Head from "next/head";
 import { getSession, useSession } from "next-auth/client";
+import Head from "next/head";
 import { useRouter } from "next/router";
+import React, { ChangeEvent, useState } from "react";
+import { useMutation } from "react-query";
+
 import {
   Button,
   LinkButton,
   DisabledButton,
   LoadingButton,
 } from "../components/Button";
-import Heading from "../components/Heading";
 import CenterSpinner from "../components/CenterSpinner";
-import React, { ChangeEvent, useState } from "react";
 import CheckBox from "../components/CheckBox";
-import prisma, { Post } from "../lib/prisma";
-import { useMutation } from "react-query";
 import DeleteDialog from "../components/DeleteDialog";
-import dayjs from "dayjs";
+import Heading from "../components/Heading";
+import prisma, { Post } from "../lib/prisma";
 
 type Props = { posts?: Post[]; error?: string };
 

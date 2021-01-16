@@ -1,8 +1,9 @@
 import { theme, BoxProps, chakra } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import Link from "next/link";
 import React from "react";
+
 import Heading from "./Heading";
-import dayjs from "dayjs";
 
 const Article: React.FC<BoxProps & any> = (props) => {
   const maxBodyLength = 50;

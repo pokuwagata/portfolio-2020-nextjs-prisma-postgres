@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+
 import ErrorBox from "../components/ErrorBox";
 
 const NotFound: NextPage = (props) => {

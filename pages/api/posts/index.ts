@@ -1,6 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { Prisma } from "@prisma/client";
+import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/client";
+
 import prisma from "../../../lib/prisma";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

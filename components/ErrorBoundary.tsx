@@ -1,4 +1,5 @@
 import { Component } from "react";
+
 import ErrorBox from "./ErrorBox";
 
 class ErrorBoundary extends Component<

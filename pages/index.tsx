@@ -1,8 +1,9 @@
 import { chakra, theme } from "@chakra-ui/react";
-import React from "react";
-import Article from "../components/Article";
-import Head from "next/head";
 import { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
+import React from "react";
+
+import Article from "../components/Article";
 import prisma from "../lib/prisma";
 
 type Props = { posts?: any[]; error?: string };

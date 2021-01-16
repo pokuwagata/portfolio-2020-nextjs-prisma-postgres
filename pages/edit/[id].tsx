@@ -1,17 +1,18 @@
 import { theme } from "@chakra-ui/react";
-import Heading from "../../components/Heading";
+import { GetServerSideProps, NextPage } from "next";
 import { useSession } from "next-auth/client";
 import Head from "next/head";
-import React from "react";
-import CenterSpinner from "../../components/CenterSpinner";
 import { useRouter } from "next/router";
-import { Button, LoadingButton } from "../../components/Button";
+import React from "react";
 import { useMutation } from "react-query";
-import { GetServerSideProps, NextPage } from "next";
+
+import { Button, LoadingButton } from "../../components/Button";
+import CenterSpinner from "../../components/CenterSpinner";
 import FieldErrorMessage from "../../components/FieldErrorMessage";
+import Heading from "../../components/Heading";
 import PostForm from "../../components/PostForm";
-import { PostReqInput, PostResponse } from "../../types/post";
 import prisma from "../../lib/prisma";
+import { PostReqInput, PostResponse } from "../../types/post";
 
 type Props = {
   post?: PostResponse;
