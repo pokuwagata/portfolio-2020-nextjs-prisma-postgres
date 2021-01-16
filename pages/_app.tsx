@@ -28,11 +28,7 @@ function MyApp({ Component, pageProps }) {
               margin: "0 auto",
             }}
           />
-          <chakra.div
-            // maxW="1230px"
-            padding={["0 16px", "0 32px"]}
-            // margin="0 auto"
-          >
+          <chakra.div padding={["0 16px", "0 32px"]}>
             <main>
               {pageProps.error ? (
                 <ErrorBox message={pageProps.error} />

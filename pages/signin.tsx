@@ -9,6 +9,7 @@ import { LinkButton } from "../components/Button";
 import CenterSpinner from "../components/CenterSpinner";
 import Heading from "../components/Heading";
 import { useCustomSession } from "../components/Hooks";
+import Section from "../components/Section";
 
 const Signup: NextPage = () => {
   const router = useRouter();
@@ -25,13 +26,15 @@ const Signup: NextPage = () => {
       <Head>
         <title>signin / portfolio-2020-nextjs-prisma-postgres</title>
       </Head>
-      <Heading mb={theme.space[4]}>ログイン</Heading>
-      <chakra.p mb={theme.space[4]}>
-        新規登録、またはログインを行います。
-      </chakra.p>
-      <LinkButton w="240x" onClick={() => signIn("google")}>
-        Google アカウントでログイン
-      </LinkButton>
+      <Section>
+        <Heading mb={theme.space[4]}>ログイン</Heading>
+        <chakra.p mb={theme.space[4]}>
+          新規登録、またはログインを行います。
+        </chakra.p>
+        <LinkButton w="240x" onClick={() => signIn("google")}>
+          Google アカウントでログイン
+        </LinkButton>
+      </Section>
     </>
   );
 };

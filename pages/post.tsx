@@ -11,6 +11,7 @@ import CenterSpinner from "../components/CenterSpinner";
 import FieldErrorMessage from "../components/FieldErrorMessage";
 import Heading from "../components/Heading";
 import PostForm from "../components/PostForm";
+import Section from "../components/Section";
 import { PostReqInput } from "../types/post";
 
 const NewPost: NextPage = () => {
@@ -45,19 +46,21 @@ const NewPost: NextPage = () => {
       <Head>
         <title>post / portfolio-2020-nextjs-prisma-postgres</title>
       </Head>
-      <Heading mb={theme.space[4]}>記事の投稿</Heading>
-      {mutation.isError && (
-        <FieldErrorMessage>{mutation.error}</FieldErrorMessage>
-      )}
-      <PostForm submitCallBack={onSubmit}>
-        {spinnerVisible ? (
-          <LoadingButton type="submit" w={theme.space[20]} />
-        ) : (
-          <Button type="submit" w={theme.space[20]}>
-            投稿
-          </Button>
+      <Section>
+        <Heading mb={theme.space[4]}>記事の投稿</Heading>
+        {mutation.isError && (
+          <FieldErrorMessage>{mutation.error}</FieldErrorMessage>
         )}
-      </PostForm>
+        <PostForm submitCallBack={onSubmit}>
+          {spinnerVisible ? (
+            <LoadingButton type="submit" w={theme.space[20]} />
+          ) : (
+            <Button type="submit" w={theme.space[20]}>
+              投稿
+            </Button>
+          )}
+        </PostForm>
+      </Section>
     </>
   );
 };
